@@ -47,8 +47,13 @@ function loadData() {
 
 
       // load Wikipedia articles
-      var WikiUrl = 'https://en.wikipedia.org/w/api.php?action=opensearch&search='
+      var WikiUrl = 'https://en.wikipediaasdf.org/w/api.php?action=opensearch&search='
                         + cityStr + '&format=json&callback=wikiCallback';
+
+      var wikiRequestTimeout = setTimeout(function(){
+          $wikiElem.text("failed to get Wikipedia resources");
+      }, 8000);
+
       $.ajax({
         url: WikiUrl,
         dataType: "jsonp",
@@ -64,6 +69,8 @@ function loadData() {
                                     + '<a href="' + url + '">' + articleStr + '</a>'
                                     + '</li>');
             };
+
+            clearTimeout(wikiRequestTimeout);
         }
       });
 
